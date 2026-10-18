@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080510">
+<title>After the Stars — Ege × Beyza</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap');
+
+:root {
+  --purple: #b68aff;
+  --pink: #f0b8ff;
+  --white: #f7efff;
+  --muted: #aaa0bd;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #080510;
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+#stars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 34px, 720px);
+  margin: auto;
+}
+
+.glow {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow.one { background: #7725d5; top: 8%; left: -200px; }
+.glow.two { background: #a32f95; right: -220px; top: 55%; }
+
+header { padding: 65px 0 38px; }
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--purple);
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(44px, 11vw, 79px);
+  line-height: 1;
+  margin: 24px 0 12px;
+  text-shadow: 0 0 35px #b68aff50;
+}
+
+h1 span {
+  display: block;
+  color: var(--pink);
+  font-style: italic;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 2;
+}
+
+.planet {
+  width: 145px;
+  height: 145px;
+  margin: 28px auto;
+  border-radius: 50%;
+  position: relative;
+  background:
+    radial-gradient(circle at 32% 27%, #e4c6ff, transparent 9%),
+    radial-gradient(circle at 40% 35%, #9e69d8, #40215f 42%, #120b22 72%);
+  box-shadow: 0 0 35px #a45cff50, inset -18px -10px 30px #05030b;
+  animation: float 5s ease-in-out infinite;
+}
+
+.planet::after {
+  content: "";
+  position: absolute;
+  width: 205px;
+  height: 53px;
+  border: 1px solid #d4a4ffad;
+  border-radius: 50%;
+  left: -31px;
+  top: 47px;
+  transform: rotate(-22deg);
+  box-shadow: 0 0 16px #b68aff40;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+section {
+  padding: 35px 0;
+  border-top: 1px solid #ffffff15;
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 35px;
+  font-weight: 400;
+  margin: 0 0 14px;
+}
+
+p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.counter {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 26px 0 10px;
+}
+
+.counter div {
+  border: 1px solid #c49aff30;
+  background: #ffffff05;
+  border-radius: 12px;
+  padding: 17px 3px;
+}
+
+.counter strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 29px;
+  font-weight: 400;
+  color: var(--pink);
+}
+
+.counter small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+button {
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  color: var(--white);
+  border: 1px solid #c49aff80;
+  background: #a66aff12;
+  border-radius: 30px;
+  padding: 13px 20px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  transition: .25s;
+}
+
+button:active { transform: scale(.97); }
+
+button:hover {
+  background: #b68aff25;
+  box-shadow: 0 0 22px #b68aff25;
+}
+
+.music {
+  position: fixed;
+  right: 15px;
+  bottom: 17px;
+  z-index: 5;
+  padding: 12px 15px;
+  background: #160d24ee;
+  backdrop-filter: blur(12px);
+}
+
+.secrets {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.secret {
+  padding: 22px 16px;
+  border: 1px solid #b68aff28;
+  border-radius: 14px;
+  background: linear-gradient(130deg, #b68aff0d, #ffffff03);
+}
+
+.secret .symbol {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.secret h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 23px;
+  margin: 5px 0;
+}
+
+.secret p { margin: 10px 0; }
+
+.message {
+  display: none;
+  padding: 15px;
+  color: var(--pink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+.message.show { display: block; animation: appear .7s ease; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#finalLetter {
+  display: none;
+  margin-top: 24px;
+  padding: 25px 20px;
+  border: 1px solid #d5a8ff66;
+  border-radius: 16px;
+  background: #180d28cc;
+  box-shadow: 0 0 35px #8c40cb18;
+}
+
+#finalLetter.show { display: block; animation: appear 1.2s ease; }
+
+.letter {
+  color: #e8d8ff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+footer {
+  padding: 35px 0 70px;
+  color: #776b8d;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.heart {
+  display: inline-block;
+  color: var(--pink);
+  animation: heartbeat 1.8s infinite;
+}
+
+@keyframes heartbeat {
+  50% { transform: scale(1.25); }
+}
+
+@media (max-width: 360px) {
+  .counter { gap: 4px; }
+  .counter strong { font-size: 24px; }
+  .counter small { font-size: 7px; }
+}
+</style>
+</head>
+
+<body>
+<canvas id="stars"></canvas>
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<button class="music" id="musicButton" onclick="toggleMusic()">
+  ♫ PLAY OUR UNIVERSE
+</button>
+
+<main>
+  <header>
+    <div class="eyebrow">A universe made for two</div>
+    <h1>AFTER <span>THE STARS</span></h1>
+    <div class="subtitle">EGE × BEYZA · OUR LITTLE INFINITY</div>
+    <div class="planet"></div>
+    <p>Somewhere in this endless universe,<br>my favourite place is still you.</p>
+    <button onclick="document.getElementById('ourTime').scrollIntoView()">
+      ENTER OUR UNIVERSE ↓
+    </button>
+  </header>
+
+  <section id="ourTime">
+    <div class="eyebrow">Chapter I · Us</div>
+    <h2>Time chose us.</h2>
+    <p>Since October 1, 2026 — and every second after.</p>
+    <div class="counter">
+      <div><strong id="days">00</strong><small>Days</small></div>
+      <div><strong id="hours">00</strong><small>Hours</small></div>
+      <div><strong id="minutes">00</strong><small>Minutes</small></div>
+      <div><strong id="seconds">00</strong><small>Seconds</small></div>
+    </div>
+    <p>Not just time passing.<br>Another little piece of forever.</p>
+  </section>
+
+  <section>
+    <div class="eyebrow">Chapter II · Hidden in the stars</div>
+    <h2>Three little secrets.</h2>
+    <p>Every star is hiding something.<br>Tap each one to discover our story.</p>
+
+    <div class="secrets">
+      <div class="secret">
+        <div class="symbol">✧</div>
+        <h3>The Beginning</h3>
+        <p>A little moment that became something more.</p>
+        <button onclick="reveal(0)">UNLOCK SECRET I</button>
+        <div class="message" id="message0">
+          Out of all the people in this world, somehow our paths met.
+          And that is a kind of magic I never want to take for granted.
+        </div>
+      </div>
+
+      <div class="secret">
+        <div class="symbol">☾</div>
+        <h3>My Favourite Place</h3>
+        <p>It isn't a place on any map.</p>
+        <button onclick="reveal(1)">UNLOCK SECRET II</button>
+        <div class="message" id="message1">
+          My favourite place isn't a city, a room, or a destination.
+          It's wherever I can be myself with you.
+        </div>
+      </div>
+
+      <div class="secret">
+        <div class="symbol">♡</div>
+        <h3>A Little Promise</h3>
+        <p>For the days we haven't lived yet.</p>
+        <button onclick="reveal(2)">UNLOCK SECRET III</button>
+        <div class="message" id="message2">
+          I can't promise every day will be perfect.
+          But I can promise to keep choosing kindness, honesty,
+          and the little moments that make us us.
+        </div>
+      </div>
+    </div>
+
+    <p id="progress">0 / 3 secrets discovered</p>
+
+    <button id="finalButton" style="display:none"
+      onclick="openLetter()">OPEN THE FINAL LETTER ✧</button>
+
+    <div id="finalLetter">
+      <div class="eyebrow">A message from my heart</div>
+      <h2>To my Ege,</h2>
+      <div class="letter">If the universe had a million stars,
+I'd still look for you.
+
+Not because you're the only light in the sky,
+but because somehow,
+your light feels like home.
+
+Thank you for being part of my little universe.
+For the laughs, the memories,
+and all the ordinary moments
+that become extraordinary with you.
+
+Whatever tomorrow brings,
+I hope we keep making room for kindness,
+for growing together,
+and for finding new reasons to smile.
+
+If I could save one thing from every day,
+it would be the little moments that remind me
+how lucky I am that our paths crossed.
+
+This is our little corner of infinity.
+Made for you.
+Made for us.
+
+Forever begins with the little things.
+
+          With all my heart,
+                    Beyza ♡</div>
+      <p>ENDLESSLY YOURS · EGE × BEYZA</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Chapter III · One last thing</div>
+    <h2>Look up tonight.</h2>
+    <p>
+      Somewhere above us, the same stars are shining.
+      And here, on this tiny planet, there is a little website
+      made just to remind you that you matter.
+    </p>
+    <div style="font-size:30px;margin:20px" class="heart">♡</div>
+    <p>Made with love, by Beyza.</p>
+  </section>
+
+  <footer>IN A SKY FULL OF STARS · YOU ARE MY FAVOURITE</footer>
+</main>
+
+<script>
+// Animated star field
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeStars() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = innerWidth * dpr;
+  canvas.height = innerHeight * dpr;
+  canvas.style.width = innerWidth + 'px';
+  canvas.style.height = innerHeight + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  stars = Array.from({length: 150}, () => ({
+    x: Math.random() * innerWidth,
+    y: Math.random() * innerHeight,
+    r: Math.random() * 1.5 + .2,
+    a: Math.random(),
+    speed: Math.random() * .012 + .003
+  }));
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  for (const s of stars) {
+    s.a += s.speed;
+    const opacity = .25 + (Math.sin(s.a) + 1) * .35;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(219,190,255,${opacity})`;
+    ctx.fill();
+  }
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', resizeStars);
+resizeStars();
+drawStars();
+
+// Relationship counter
+const startDate = new Date('2026-10-01T00:00:00');
+
+function updateCounter() {
+  const now = new Date();
+  let diff = Math.max(0, now - startDate);
+
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+
+  document.getElementById('days').textContent = String(days).padStart(2, '0');
+  document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+  document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+  document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+}
+
+updateCounter();
+setInterval(updateCounter, 1000);
+
+// Secret messages and final letter
+const discovered = new Set();
+
+function reveal(index) {
+  document.getElementById('message' + index).classList.add('show');
+  discovered.add(index);
+
+  document.getElementById('progress').textContent =
+    discovered.size + ' / 3 secrets discovered';
+
+  if (discovered.size === 3) {
+    document.getElementById('finalButton').style.display = 'inline-block';
+  }
+}
+
+function openLetter() {
+  const letter = document.getElementById('finalLetter');
+  letter.classList.add('show');
+  letter.scrollIntoView({behavior: 'smooth', block: 'center'});
+  burstStars();
+}
+
+function burstStars() {
+  for (let i = 0; i < 30; i++) {
+    const el = document.createElement('span');
+    el.textContent = ['✧', '♡', '✦', '·'][Math.floor(Math.random() * 4)];
+    el.style.cssText = `
+      position:fixed;
+      z-index:10;
+      left:${Math.random() * 100}vw;
+      top:${Math.random() * 100}vh;
+      color:#d8b2ff;
+      font-size:${12 + Math.random() * 20}px;
+      pointer-events:none;
+      animation:appear 1.5s ease forwards;
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1600);
+  }
+}
+
+// Gentle synthesized ambient music; starts only after a tap
+let audioContext;
+let oscillators = [];
+let musicOn = false;
+
+function toggleMusic() {
+  const button = document.getElementById('musicButton');
+
+  if (musicOn) {
+    oscillators.forEach(o => {
+      try { o.stop(); } catch (e) {}
+    });
+    oscillators = [];
+    musicOn = false;
+    button.textContent = '♫ PLAY OUR UNIVERSE';
+    return;
+  }
+
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) {
+    button.textContent = 'MUSIC NOT SUPPORTED';
+    return;
+  }
+
+  audioContext = new AudioCtx();
+  const notes = [174.61, 220, 261.63, 329.63];
+
+  notes.forEach((freq, i) => {
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.value = 0.018 / (i + 1);
+
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+    osc.start();
+
+    oscillators.push(osc);
+  });
+
+  musicOn = true;
+  button.textContent = '♫ PAUSE OUR UNIVERSE';
+}
+</script>
+</body>
+</html>
